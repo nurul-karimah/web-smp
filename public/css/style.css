@@ -47,6 +47,10 @@ nav ul li a {
   font-weight: bold;
 }
 
+nav ul nav-item {
+  color: aqua;
+}
+
 #awalan{
   position: relative;
   overflow: hidden;

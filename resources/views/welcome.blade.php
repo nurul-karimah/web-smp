@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Informasi PAUD Plamboyan</title>
+    <title>Sistem Informasi Yayasan Al-Inganah (SMP PLUS AL-HILAL)</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
@@ -17,10 +17,10 @@
 </head>
 <body>
    
-    <header class="bg-primary text-white text-center py-4 fixed-top">
+    <header class="bg-green text-white text-center py-4 fixed-top">
         <div class="container d-flex align-items-center">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo PAUD" style="height: 100px; margin-right: 10px;" id="img-nav">
-            <h1 class="header-title mb-0">PAUD Plamboyan</h1>
+            <img src="{{ asset('img/logo.png') }}" alt="Logo SMP" style="height: 100px; margin-right: 10px;" id="img-nav">
+            <h6 class="header-title mb-0">Yayasan Al-Inganah <br> (SMP Plus Al-Hilal)</h6>
             @if (Route::has('login'))
             <nav class="navbar navbar-expand-sm navbar-dark ml-auto">
                 <ul class="navbar-nav mx-auto">
@@ -60,11 +60,11 @@
        
         <section id="awalan" class="bg-light py-5" data-aos="zoom-in-down">
            
-            <div class="jumbotron jumbotron-fluid text-white text-center" style="background: url('{{ asset('img/doc2.jpg') }}') no-repeat center center/cover; position: relative;">
+            <div class="jumbotron jumbotron-fluid text-white text-center" style="background: url('{{ asset('img/Hero.jpg') }}') no-repeat center center/cover; position: relative;">
                 <div class="overlay"></div>
                 <div class="container animate__animated animate__backInUp">
-                    <h2 class="display-4">Selamat Datang di Sistem Informasi PAUD Plamboyan</h2>
-                    <p class="lead">Tempat terbaik untuk pendidikan anak usia dini.</p>
+                    <h1 class="display-4">Selamat Datang di Sistem Informasi Pendaftaran Siswa Baru <br> Yayasan Al-Inganah (SMP Plus Al-Hilal)</h1>
+                    <p class="lead">Tempat yang amanah untuk pendidikan anak menengah pertama.</p>
                     <a href="#about" class="btn btn-success btn-lg btn-transparent-bg">Pelajari Lebih Lanjut</a>
                 </div>
             </div>
@@ -79,11 +79,11 @@
                 <h3 class="text-center mb-4" data-aos="fade-up">Tentang Kami</h3>
                 <div class="row">
                     <div class="col-md-6" data-aos="fade-right">
-                        <p>PAUD Plamboyan adalah lembaga pendidikan yang berfokus pada pengembangan anak usia dini dengan metode pembelajaran yang interaktif dan menyenangkan.</p>
-                        <p>Kami percaya bahwa pendidikan anak usia dini adalah fondasi penting untuk masa depan anak-anak. Dengan pendekatan yang holistik, kami menyediakan lingkungan yang mendukung perkembangan kognitif, sosial, emosional, dan fisik anak-anak.</p>
+                        <p>Yayasan Al Inganah sebuah lembaga pendidikan Islam yang berdiri sejak tahun 2007, berlokasi di Dusun Sampih, Desa Rejasari, Kecamatan Langensari, Kota Banjar, Jawa Barat. Didirikan oleh Abah Kyai M. Kholid Bawakir, yayasan ini bertujuan mencetak generasi muslim yang berakhlakul karimah, berilmu, dan mandiri dalam bingkai nilai-nilai Islam dan kebangsaan.</p>
+                        <p>Dengan memadukan nilai keislaman dan nasionalisme, Yayasan Al- Inganah (SMP Plus Al-Hilal) menjadi lembaga pendidikan yang tidak hanya fokus pada aspek spiritual dan intelektual, tetapi juga pada kemandirian, keterampilan hidup, dan kepedulian terhadap lingkungan.</p>
                     </div>
                     <div class="col-md-6" data-aos="fade-left">
-                        <img src="{{ asset('img/doc1.jpg') }}" class="img-fluid rounded" alt="Foto PAUD Plamboyan">
+                        <img src="{{ asset('img/hero2.jpg') }}" class="img-fluid rounded" alt="Foto SMP Plus Al-Hilal">
                     </div>
                 </div>
                 
@@ -97,33 +97,36 @@
                 <div class="row" data-aos="flip-down">
                     <div class="col-md-4 mb-3">
                         <div class="card">
-                            <img src="{{ asset('img/rapat.jpg') }}" class="card-img-top" alt="Program 1" width="200px" height="150px">
+                            <img src="{{ asset('img/quran.jpg') }}" class="card-img-top" alt="Program 1" width="200px" height="150px">
                             <div class="card-body">
-                                <h5 class="card-title">Rapat Orangtua/Wali</h5>
-                                <p class="card-text">Kegiatan Tahunan Mengadakan Rapat Bersama Orangtua/Wali</p>
+                                <h5 class="card-title">Tahfidzul Al-Qur'an</h5>
+                                <p class="card-text">Program ini berfokus pada pembinaan siswa dalam menghafal Al-Qur’an secara bertahap dan terstruktur, dengan target hafalan tertentu setiap jenjangnya serta dibimbing oleh guru yang kompeten di bidang tahfidz.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="card">
-                            <img src="{{ asset('img/senam.jpg') }}" class="card-img-top" alt="Program 2" width="200px" height="150px">
+                            <img src="{{ asset('img/digital.jpg') }}" class="card-img-top" alt="Program 2" width="200px" height="150px">
                             <div class="card-body">
-                                <h5 class="card-title">Kegiatan Olahraga Mingguan</h5>
-                                <p class="card-text">kegiatan senam ini dilakukan oleh siswa/siswi Paud setiap Seminggu sekali</p>
+                                <h5 class="card-title">Media Digital</h5>
+                                <p class="card-text">Siswa dibekali keterampilan dalam bidang teknologi informasi dan komunikasi, seperti desain grafis, editing video, serta pemanfaatan media digital untuk pembelajaran dan dakwah.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <div class="card">
-                            <img src="{{ asset('img/istirahat.jpg') }}" class="card-img-top" alt="Program 3" width="200px" height="150px">
+                            <img src="{{ asset('img/bahasa.jpg') }}" class="card-img-top" alt="Program 3" width="200px" height="150px">
                             <div class="card-body">
-                                <h5 class="card-title">Istirahat Bersama</h5>
-                                <p class="card-text">Waktu istirahat anak anak akan dibiarkan bermain bersama</p>
+                                <h5 class="card-title">Bahasa Asing (Arab, Inggris, dan Jepang) </h5>
+                                <p class="card-text">Program ini bertujuan meningkatkan kemampuan siswa dalam berkomunikasi menggunakan tiga bahasa asing untuk mendukung wawasan global dan memperluas peluang akademik maupun karier di masa depan.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <br> <br> <br> <h4 class="text-center mb-4">Kontak Kami</h4>
+                <h4 class="text-center mb-4" data-aos=>Syifa Mutmainah, S.Pd. (0858-6275-5124)</h4>
             </div>
+
         </section>
 
         <section id="users" class="bg-light py-5 mt-3" data-aos="zoom-out-down">
@@ -146,7 +149,7 @@
 
     <footer class="bg-dark text-white text-center py-3">
         <div class="container">
-            <p>&copy; 2024 PAUD Plamboyan. All rights reserved.</p>
+            <p>&copy; 2025 Yayasan Al-Inganah SMP Plus Al-Hilal. All rights reserved.</p>
         </div>
     </footer>
 

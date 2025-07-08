@@ -114,3 +114,14 @@ Route::post('/absensi/aksi', [OrangtuaController::class, 'createAbsensi']);
 Route::get('/catatanperkembangananaka', [CatatanPerkembanganAnakController::class, 'indexCatatanPerkembangan']);
 Route::post('/aksi/addCatatanPerkembangan', [CatatanPerkembanganAnakController::class, 'storeCatatanPerkembangan']);
 Route::get('/showForm/CatatanPerkembangan', [CatatanPerkembanganAnakController::class, 'showFormData']);
+
+require __DIR__.'/pembayaran.php';
+
+use App\Http\Controllers\PembayaranController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pembayaran/create', [PembayaranController::class, 'create'])->name('pembayaran.create');
+    Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store');
+    Route::get('/pembayaran/{id}/edit', [PembayaranController::class, 'edit'])->name('pembayaran.edit');
+    Route::put('/pembayaran/{id}', [PembayaranController::class, 'update'])->name('pembayaran.update');
+});

@@ -35,6 +35,8 @@ Route::middleware('guest')->group(function () {
                 ->name('password.store');
 });
 
+require __DIR__ . '/auth.php';
+
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
