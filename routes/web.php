@@ -10,6 +10,7 @@ use App\Http\Controllers\CatatanPerkembanganAnakController;
 use App\Models\CatatanPerkembanganAnak;
 use App\Models\DataAkademikPaud;
 use App\Models\Orantua;
+use App\Http\Controllers\PembayaranController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,10 +116,7 @@ Route::get('/catatanperkembangananaka', [CatatanPerkembanganAnakController::clas
 Route::post('/aksi/addCatatanPerkembangan', [CatatanPerkembanganAnakController::class, 'storeCatatanPerkembangan']);
 Route::get('/showForm/CatatanPerkembangan', [CatatanPerkembanganAnakController::class, 'showFormData']);
 
-require __DIR__.'/pembayaran.php';
-
-use App\Http\Controllers\PembayaranController;
-
+//Pembayaran
 Route::middleware(['auth'])->group(function () {
     Route::get('/pembayaran/create', [PembayaranController::class, 'create'])->name('pembayaran.create');
     Route::post('/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store');

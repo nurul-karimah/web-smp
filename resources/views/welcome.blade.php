@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <br> <br> <br> <h4 class="text-center mb-4">Kontak Kami</h4>
-                <h4 class="text-center mb-4" data-aos=>Syifa Mutmainah, S.Pd. (0858-6275-5124)</h4>
+                <h5 class="text-center mb-4" data-aos=>Syifa Mutmainah, S.Pd. (0858-6275-5124)</h5>
             </div>
 
         </section>
