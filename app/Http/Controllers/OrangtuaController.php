@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
-use App\Models\Orantua;
+use App\Models\Orangtua;
 use App\Models\Siswa;
 use App\Models\DataAkademikPaud;
 use Illuminate\Support\Facades\Validator;
@@ -14,14 +14,35 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use App\Models\Pembayaran;
+
 
 
 class OrangtuaController extends Controller
 {
+    public function indexSiswa()
+{
+    $orangtua = Auth::guard('orangtua')->user();
+
+    if (!$orangtua) {
+        return redirect('/')->with('error', 'Sesi tidak ditemukan');
+    }
+
+    $siswa = Siswa::where('orangtua_id', $orangtua->id)->first();
+
+    if (!$siswa) {
+        return redirect()->back()->with('error', 'Data siswa tidak ditemukan');
+    }
+
+    $tagihan = Pembayaran::where('siswa_id', $siswa->id)->get();
+
+    return view('S_orangtua.pembayaranSiswa', compact('tagihan', 'orangtua', 'siswa'));
+}
+
     //
     public function showOrangtua()
     {
-        $orangtua = Orantua::all();
+        $orangtua = Orangtua::all();
 
         return view('dataOrangtua', compact('orangtua'));
     }
@@ -40,9 +61,9 @@ class OrangtuaController extends Controller
         $validator = Validator::make($request->all(), [
             'nik' => ['required', 'string', 'max:255'],
             'nama' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:orantua'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:orangtua'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'nomertelepon' => ['required', 'string', 'max:50'],
+            'nomor_telepon' => ['required', 'string', 'max:50'],
             'foto' => 'required|mimes:jpeg,jpg,png|max:2048',
             'jenkel' => ['required', 'string', 'max:255'],
             'alamat' => ['required', 'string'],
@@ -56,12 +77,12 @@ class OrangtuaController extends Controller
         $foto = $request->file('foto');
         $fotoPath = $foto->storeAs('public/orangtua', $foto->hashName());
 
-        Orantua::insert([
+        Orangtua::insert([
             'nik' => $request->nik,
             'nama' => $request->nama,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'nomertelepon' => $request->nomertelepon,
+            'nomor_telepon' => $request->nomor_telepon,
             'foto' => $foto->hashName(),
             'jenkel' => $request->jenkel,
             'alamat' => $request->alamat,
@@ -74,10 +95,10 @@ class OrangtuaController extends Controller
     {
 
         $query = $request->input('query');
-        $orangtua = Orantua::where('nama', 'LIKE', "%$query%")
+        $orangtua = Orangtua::where('nama', 'LIKE', "%$query%")
             ->orWhere('nik', 'LIKE', "%$query%")
             ->orWhere('email', 'LIKE', "%$query%")
-            ->orWhere('nomertelepon', 'LIKE', "$query")
+            ->orWhere('nomor_telepon', 'LIKE', "$query")
             ->orWhere('jenkel', 'LIKE', "%$query%")
             ->orWhere('alamat', 'LIKE', "%$query%")
             ->get();
@@ -87,9 +108,9 @@ class OrangtuaController extends Controller
 
     public function viewData($id)
     {
-        $orangtua = Orantua::findOrFail($id);
+        $orangtua = Orangtua::findOrFail($id);
 
-        $siswa = Siswa::where('orangtua_id', $id)->get();
+        $orangtua = orangtua::where('orangtua_id', $id)->get();
 
 
 
@@ -98,7 +119,7 @@ class OrangtuaController extends Controller
 
     public function editData($id)
     {
-        $orangtua = Orantua::findOrFail($id);
+        $orangtua = Orangtua::findOrFail($id);
 
         return view('orangtua.editData', compact('orangtua'));
     }
@@ -106,14 +127,14 @@ class OrangtuaController extends Controller
     public function updateData(Request $request, $id)
     {
 
-        $orangtua = Orantua::findOrFail($id);
+        $orangtua = Orangtua::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
             'nik' => ['required', 'string', 'max:255'],
             'nama' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'nomertelepon' => ['required', 'string', 'max:255'],
+            'nomor_telepon' => ['required', 'string', 'max:255'],
             'foto' => 'nullable|mimes:jpeg,jpg,png|max:2048',
             'jenkel' => ['required', 'string', 'max:255'],
             'alamat' => ['required', 'string'],
@@ -143,7 +164,7 @@ class OrangtuaController extends Controller
             'nama' => $request->nama,
             'email' => $request->email,
             'password' => $request->filled('password') ? Hash::make($request->password) : $orangtua->password,
-            'nomertelepon' => $request->nomertelepon,
+            'nomor_telepon' => $request->nomor_telepon,
             'foto' => $fotoName,
             'jenkel' => $request->jenkel,
             'alamat' => $request->alamat,
@@ -155,7 +176,7 @@ class OrangtuaController extends Controller
 
     public function destroyOrangtua($id)
     {
-        $orangtua = Orantua::findOrFail($id);
+        $orangtua = Orangtua::findOrFail($id);
 
         $siswa = Siswa::where('orangtua_id', $id)->get();
 
@@ -185,25 +206,26 @@ class OrangtuaController extends Controller
         return view('S_orangtua.login');
     }
 
-    public function LoginAksi(Request $request)
-    {
+ public function LoginAksi(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'email' => ['required', 'string', 'email', 'max:255'],
+        'password' => ['required', 'string', 'min:8'],
+    ]);
 
-        $validator = Validator::make($request->all(), [
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::guard('orangtua')->attempt($credentials)) {
-            return redirect()->intended('/orangtua/dashboard')->with('success', 'Login Berhasil');
-        } else {
-            return redirect()->back()->with('error', 'Email Atau Password salah');
-        }
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
     }
+
+    $credentials = $request->only('email', 'password');
+
+    if (Auth::guard('orangtua')->attempt($credentials)) {
+        return redirect('/pembayaran-siswa')->with('success', 'Login Berhasil');
+    } else {
+        return redirect()->back()->with('error', 'Email Atau Password salah');
+    }
+}
+
 
     public function dashboard()
     {
@@ -286,7 +308,7 @@ class OrangtuaController extends Controller
         if (!$orangtua) {
             return redirect('/')->with('error', 'Fitur ini membutuhkan sesi');
         }
-        $siswa = Siswa::where('orangtua_id', $orangtua->id)->with('orantua')->first();
+        $siswa = Siswa::where('orangtua_id', $orangtua->id)->with('orangtua')->first();
         $data = DataAkademikPaud::where('siswa_id', $siswa->id)->first();
 
 
@@ -410,4 +432,27 @@ class OrangtuaController extends Controller
 
         return redirect('/absensi')->with('success', 'Absensi Berhasil');
     }
+
+ public function pembayaransiswa()
+{
+    $orangtua = Auth::guard('orangtua')->user();
+
+    if (!$orangtua) {
+        return redirect('/')->with('error', 'Sesi tidak ditemukan');
+    }
+
+    $siswa = Siswa::where('orangtua_id', $orangtua->id)->get();
+
+    if ($siswa->isEmpty()) {
+        return redirect()->back()->with('error', 'Data siswa tidak ditemukan untuk orangtua ini');
+    }
+
+    $riwayat = Pembayaran::whereIn('siswa_id', $siswa->pluck('id'))->get();
+    $statusAktif = Pembayaran::whereIn('siswa_id', $siswa->pluck('id'))
+        ->where('status_pembayaran', 'BELUM LUNAS')
+        ->first();
+
+    return view('S_orangtua.pembayaranSiswa', compact('orangtua', 'riwayat', 'statusAktif'));
+}
+
 }

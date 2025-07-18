@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registrasi Orang Tua</title>
+  <title>Registrasi</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -70,8 +70,8 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h2>Registrasi Orangtua</h2>
-              <img src="{{ asset('img/orangtua.png') }}" alt="Logo PAUD" style="height: 120px; margin-left: 20px;" id="img-nav">
+              <h2>Registrasi</h2>
+              <img src="{{ asset('img/orang2.png') }}" alt="Logo yayasan" style="height: 120px; margin-left: 20px;" id="img-nav">
             </div>
           </div>
         </div>
@@ -156,13 +156,13 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Nomer Telpon/WA</label>
+                  <label>Nomor Telpon/WA</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
-                    <input type="number" class="form-control" name="nomertelepon" value="{{ old('nomertelepon') }}">
-                    @error('nomertelepon')
+                    <input type="number" class="form-control" name="nomortelepon" value="{{ old('nomortelepon') }}">
+                    @error('nomortelepon')
                     <div>
                       {{ $message }}
                     </div>
@@ -171,7 +171,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label>Foto Orangtua</label>
+                  <label>Foto</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>

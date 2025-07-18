@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Web SMP - Pembayaran</title>
+    <title>Yayasan Al-Inganah - Pembayaran</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1 style="text-align: center;">Aplikasi Pembayaran Siswa</h1>
+        <h1 style="text-align: center;">Pembayaran Siswa</h1>
         <hr>
         @if(session('success'))
             <div style="color: green;">{{ session('success') }}</div>

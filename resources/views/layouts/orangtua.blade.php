@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+  @props(['orangtua'])
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Sistem Orangtua/Wali') }}</title>
+        <title>{{ config('app.name', 'Sistem Siswa/Wali') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -73,7 +74,7 @@
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigationOrangtua', ['orangtua'=>$orangtua])
+           @includeWhen(isset($orangtua), 'layouts.navigationOrangtua', ['orangtua' => $orangtua])
 
             <!-- Debugging -->
         @if(isset($orangtua))
@@ -82,7 +83,6 @@
             <p>Data Orangtua tidak tersedia</p>
         @endif
 
-        @props(['orangtua'])
 
            
 

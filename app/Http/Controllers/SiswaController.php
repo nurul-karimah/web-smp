@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Siswa;
-use App\Models\Orantua;
+use App\Models\Orangtua;
 
 class SiswaController extends Controller
 {
     public function RegisterSiswa($id)
     {
 
-        $orangtua = Orantua::findOrFail($id);
+        $orangtua = Orangtua::findOrFail($id);
         $siswa = Siswa::where('orangtua_id', $id)->first();
 
         if ($siswa) {

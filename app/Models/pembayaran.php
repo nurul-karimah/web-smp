@@ -18,4 +18,15 @@ class Pembayaran extends Model
         'bukti_pembayaran',
         'status_pembayaran',
     ];
+
+    public function siswa()
+{
+    return $this->belongsTo(\App\Models\Siswa::class);
+}
+public function orangtua()
+{
+    return $this->belongsTo(\App\Models\Orangtua::class);
+}
+
+
 }

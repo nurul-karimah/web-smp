@@ -88,7 +88,7 @@
                         <td>{{ $o->nama }}</td>
                         <td>{{ $o->nik }}</td>
                         <td>{{ $o->email }}</td>
-                        <td><span class="tag tag-success">{{ $o->nomertelepon }}</span></td>
+                        <td><span class="tag tag-success">{{ $o->nomer_telepon }}</span></td>
                         <td>@if ($o->foto)
                             <img src="{{ asset('/storage/orangtua/'.$o->foto) }}" alt="foto" width="100" >
                         @else

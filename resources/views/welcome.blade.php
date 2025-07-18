@@ -24,18 +24,8 @@
             @if (Route::has('login'))
             <nav class="navbar navbar-expand-sm navbar-dark ml-auto">
                 <ul class="navbar-nav mx-auto">
-                    @auth
-                    <li class="nav-item"><a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a></li>
-                    @else
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
-                    @if (Route::has('register'))
-
                     <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
-                        
-                    @endif
-                    
-                    @endauth
-                   
                 </ul>
             </nav>
                 
@@ -135,13 +125,15 @@
                 <h3 class="text-center mb-3">
                     Bergabung Dengan Kami Dibawah Ini
                 </h3>
-                <div class="row" style="margin-left: 300px;">
-                    <div class="col-md-3 me-2">
-                        <a href="{{ url('/guru/login') }}"><img src="{{ asset('img/guru.png') }}" class="img-fluid rounded-circle" width="150"></a>
-                    </div>
-                    <div class="col-md-3 me-2">
-                        <a href="{{ url('/loginOrangtua') }}"><img src="{{ asset('img/orang2.png') }}" class="img-fluid rounded-circle" width="150"></a>
-                    </div>
+                    <div class="container text-center my-5">
+    <div>
+        <a href="{{ url('/loginOrangtua') }}">
+            <img src="{{ asset('img/orang2.png') }}" class="img-fluid rounded-circle" width="150">
+        </a>
+    </div>
+    <h5 class="mt-4">Setelah melakukan register siswa lanjut login <br>Dengan klik gambar di atas</h5>
+</div>
+
                 </div>
             </div>
         </section>

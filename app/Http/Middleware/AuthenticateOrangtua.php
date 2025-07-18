@@ -9,19 +9,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticateOrangtua
 {
-  /**
-   * Handle an incoming request.
-   *
-   * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-   * @param /Closure $next
-   * @param string|null ..$guard
-   * @return mixed
-   */
-  public function handle(Request $request, Closure $next, ...$guard): Response
-  {
-    if (!Auth::guard('web')->check()) {
-      return redirect()->route('loginOrangtua')->with('error', 'Silahkan Login Terlebih dahulu');
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+       if (!Auth::guard('orangtua')->check()) {
+    logger('Tidak lolos middleware orangtua');
+    return redirect()->route('loginOrangtua')->with('error', 'Silakan login terlebih dahulu');
     }
-    return $next($request);
-  }
+
+
+        return $next($request);
+    }
 }

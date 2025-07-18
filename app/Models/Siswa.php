@@ -21,8 +21,8 @@ class Siswa extends Model
         'orangtua_id'
     ];
 
-    public function orantua()
+    public function orangtua()
     {
-        return $this->belongsTo(Orantua::class, 'orangtua_id');
+        return $this->belongsTo(Orangtua::class, 'orangtua_id');
     }
 }
