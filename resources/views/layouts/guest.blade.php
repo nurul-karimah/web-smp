@@ -19,7 +19,7 @@
         <div class="flex items-center">
             <a href="/" class="flex items-center">
                 <img src="{{ asset('img/logo.png') }}" alt="Logo PAUD" style="height: 100px; margin-right: 10px;" id="img-nav">
-                <h1 class="text-3xl font-bold text-center">PAUD Plamboyan</h1>
+                <h1 class="text-3xl font-bold text-center">Yayasan Al-Inganah <br> (SMP Plus Al-Hilal)</h1>
             </a>
         </div>
 

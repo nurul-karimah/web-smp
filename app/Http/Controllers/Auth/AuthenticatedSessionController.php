@@ -25,11 +25,22 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Ambil role user
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
+            return redirect('/dashboard');
+        } elseif ($user->role === 'siswa') {
+            return redirect('/dashboardSiswa'); // ✅ langsung redirect ke URL
+        }
+
+
+        // Jika role tidak dikenali, kembali ke login atau default dashboard
+        return redirect()->route('dashboard');
     }
+
 
     /**
      * Destroy an authenticated session.

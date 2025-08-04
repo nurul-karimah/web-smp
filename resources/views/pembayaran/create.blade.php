@@ -1,22 +1,39 @@
-@extends('layouts.app')
+@extends('layouts.sidebar') <!-- Ganti jika layout kamu berbeda -->
+
 @section('content')
-<h2>Tambah Tagihan Pembayaran</h2>
+    <div class="container">
+        <h2>Form Pembayaran</h2>
 
-<form action="{{ route('pembayaran.store') }}" method="POST">
-    @csrf
-    <label for="user_id">Pilih Siswa:</label>
-    <select name="user_id" required>
-        @foreach($siswa as $s)
-            <option value="{{ $s->id }}">{{ $s->name }}</option>
-        @endforeach
-    </select><br><br>
 
-    <label>Jumlah Tagihan:</label>
-    <input type="number" name="jumlah_tagihan" required><br><br>
 
-    <label>Tanggal Tagihan:</label>
-    <input type="date" name="tanggal_tagihan" required><br><br>
+        <form action="{{ route('pembayaran.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
-    <button type="submit">Simpan Tagihan</button>
-</form>
+            <div class="mb-3">
+                <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
+                <input type="file" class="form-control" name="bukti_pembayaran" required>
+                @error('bukti_pembayaran')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="total_dibayarkan" class="form-label">Total Dibayarkan</label>
+                <input type="number" class="form-control" name="total_dibayarkan" required>
+                @error('total_dibayarkan')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="digunakan_untuk" class="form-label">Digunakan Untuk</label>
+                <input type="text" class="form-control" name="digunakan_untuk" value="ppdb" required>
+                @error('digunakan_untuk')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+
+            <button type="submit" class="btn btn-primary">Kirim</button>
+        </form>
+    </div>
 @endsection

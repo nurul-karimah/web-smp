@@ -123,7 +123,7 @@
             <div class="container">
 
                 <h3 class="text-center mb-3">
-                    Bergabung Dengan Kami Dibawah Ini
+                    Yuk Bergabung Dengan Kami 
                 </h3>
                     <div class="container text-center my-5">
     <div>
@@ -131,7 +131,7 @@
             <img src="{{ asset('img/orang2.png') }}" class="img-fluid rounded-circle" width="150">
         </a>
     </div>
-    <h5 class="mt-4">Setelah melakukan register siswa lanjut login <br>Dengan klik gambar di atas</h5>
+   
 </div>
 
                 </div>

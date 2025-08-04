@@ -57,7 +57,7 @@
             <label for="role">Role:</label>
             <select name="role" id="role" class="block mt-1 w-full" required>
                 <option value="admin">Admin</option>
-                <option value="orangtua wali">Siswa</option>
+                <option value="siswa">Siswa</option>
             </select>
             <x-input-error :messages="$errors->get('role')" class="mt-2"/>
         </div>

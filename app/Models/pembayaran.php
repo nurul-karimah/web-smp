@@ -9,24 +9,26 @@ class Pembayaran extends Model
 {
     use HasFactory;
 
-    protected $table = 'pembayaran'; // <- tambahkan ini jika nama tabel tidak pakai 's'
+    protected $table = 'pembayarans';
 
     protected $fillable = [
         'user_id',
-        'jumlah_tagihan',
-        'tanggal_tagihan',
         'bukti_pembayaran',
-        'status_pembayaran',
+        'total_bayar',
+        'digunakan_untuk',
+        'tanggal_bayar',
+        'status',
+        'alasan',
     ];
 
-    public function siswa()
-{
-    return $this->belongsTo(\App\Models\Siswa::class);
-}
-public function orangtua()
-{
-    return $this->belongsTo(\App\Models\Orangtua::class);
-}
+    // Relasi ke User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-
+    public function pendaftaran()
+    {
+        return $this->hasOne(Pendaftaran::class, 'user_id', 'user_id');
+    }
 }

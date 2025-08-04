@@ -22,39 +22,39 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
-    {
-        // Register blade component untuk orangtua
-        Blade::component('layouts.orangtua', 'orangtua-layout');
+    // public function boot(): void
+    // {
+    //     // Register blade component untuk orangtua
+    //     Blade::component('layouts.orangtua', 'orangtua-layout');
 
-        // View composer untuk orangtua
-        View::composer('layouts.navigationOrangtua', function ($view) {
-            $jumlahTagihanBelumLunas = 0;
+    //     // View composer untuk orangtua
+    //     View::composer('layouts.navigationOrangtua', function ($view) {
+    //         $jumlahTagihanBelumLunas = 0;
 
-            if (Auth::guard('orangtua')->check()) {
-                $orangtua = Auth::guard('orangtua')->user();
-                $siswa = Siswa::where('orangtua_id', $orangtua->id)->first();
+    //         if (Auth::guard('orangtua')->check()) {
+    //             $orangtua = Auth::guard('orangtua')->user();
+    //             $siswa = Siswa::where('orangtua_id', $orangtua->id)->first();
 
-                if ($siswa) {
-                    $jumlahTagihanBelumLunas = Pembayaran::where('siswa_id', $siswa->id)
-                        ->where('status_pembayaran', 'belum lunas')
-                        ->count();
-                }
-            }
+    //             if ($siswa) {
+    //                 $jumlahTagihanBelumLunas = Pembayaran::where('siswa_id', $siswa->id)
+    //                     ->where('status_pembayaran', 'belum lunas')
+    //                     ->count();
+    //             }
+    //         }
 
-            $view->with('jumlahTagihanBelumLunas', $jumlahTagihanBelumLunas);
-        });
+    //         $view->with('jumlahTagihanBelumLunas', $jumlahTagihanBelumLunas);
+    //     });
 
-        // View composer untuk admin/web
-        View::composer('layouts.navigation', function ($view) {
-            $jumlahTagihanBelumLunas = 0;
+    //     // View composer untuk admin/web
+    //     View::composer('layouts.navigation', function ($view) {
+    //         $jumlahTagihanBelumLunas = 0;
 
-            if (Auth::guard('web')->check()) {
-                $jumlahTagihanBelumLunas = Pembayaran::where('status_pembayaran', 'belum lunas')->count();
-            }
+    //         if (Auth::guard('web')->check()) {
+    //             $jumlahTagihanBelumLunas = Pembayaran::where('status_pembayaran', 'belum lunas')->count();
+    //         }
 
-            $view->with('jumlahTagihanBelumLunas', $jumlahTagihanBelumLunas);
-       
-        });
-    }
+    //         $view->with('jumlahTagihanBelumLunas', $jumlahTagihanBelumLunas);
+
+    //     });
+    // }
 }

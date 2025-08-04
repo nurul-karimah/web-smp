@@ -1,24 +1,60 @@
-@extends('layouts.app')
+@extends('layouts.sidebar')
+
 @section('content')
-<h2>Edit Status Pembayaran</h2>
+    <div class="container">
+        <h3>Edit Data Pembayaran</h3>
 
-<form action="{{ route('pembayaran.update', $pembayaran->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
 
-    <label>Nama Siswa:</label>
-    <input type="text" value="{{ $pembayaran->user->name }}" readonly><br><br>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <label>Jumlah Tagihan:</label>
-    <input type="text" value="Rp {{ number_format($pembayaran->jumlah_tagihan, 0, ',', '.') }}" readonly><br><br>
+        <form action="{{ url('/updatePembayaran', $pembayaran->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-    <label>Status Pembayaran:</label>
-    <select name="status_pembayaran" required>
-        <option value="BELUM" {{ $pembayaran->status_pembayaran == 'BELUM' ? 'selected' : '' }}>BELUM</option>
-        <option value="MENUNGGU" {{ $pembayaran->status_pembayaran == 'MENUNGGU' ? 'selected' : '' }}>MENUNGGU</option>
-        <option value="LUNAS" {{ $pembayaran->status_pembayaran == 'LUNAS' ? 'selected' : '' }}>LUNAS</option>
-    </select><br><br>
+            <div class="mb-3">
+                <label for="total_bayar" class="form-label">Total Bayar</label>
+                <input type="number" class="form-control" name="total_bayar"
+                    value="{{ old('total_bayar', $pembayaran->total_bayar) }}" required>
+            </div>
 
-    <button type="submit">Update Status</button>
-</form>
+            <!-- Digunakan Untuk (readonly) -->
+            <div class="mb-3">
+                <label for="digunakan_untuk" class="form-label">Digunakan Untuk</label>
+                <input type="text" class="form-control" name="digunakan_untuk"
+                    value="{{ old('digunakan_untuk', $pembayaran->digunakan_untuk) }}" readonly>
+            </div>
+
+            <!-- Tanggal Bayar (default ke hari ini jika kosong) -->
+            <div class="mb-3">
+                <label for="tanggal_bayar" class="form-label">Tanggal Bayar</label>
+                <input type="date" name="tanggal_bayar" class="form-control"
+                    value="{{ old('tanggal_bayar', $tanggalBayar) }}">
+            </div>
+
+
+            <div class="mb-3">
+                <label for="bukti_bayar" class="form-label">Bukti Bayar</label>
+                @if ($pembayaran->bukti_pembayaran)
+                    <p><a href="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}" target="_blank">Lihat File Saat
+                            Ini</a>
+                    </p>
+                @endif
+                <input type="file" class="form-control" name="bukti_bayar">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Data</button>
+            <a href="{{ route('pembayaran.index') }}" class="btn btn-secondary">Kembali</a>
+        </form>
+    </div>
 @endsection

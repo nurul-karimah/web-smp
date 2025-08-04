@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class RegisteredUserController extends Controller
@@ -41,6 +43,7 @@ class RegisteredUserController extends Controller
 
         $foto = $request->file('foto');
         $fotoPath = $foto->storeAs('public/users', $foto->hashName());
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -51,9 +54,62 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redirect berdasarkan role
+        if ($user->role === 'siswa') {
+            return redirect('/dashboardSiswa');
+        } elseif ($user->role === 'admin') {
+            return redirect('/dashboard');
+        }
+
+        // Default fallback
+        return redirect('/');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $id],
+            'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+            'alamat' => ['required', 'string', 'max:255'],
+            'foto' => 'nullable|mimes:jpeg,jpg,png|max:2048',
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->alamat = $request->alamat;
+
+        // Ganti password hanya jika diisi
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        // Jika ada foto baru diunggah
+        if ($request->hasFile('foto')) {
+            // Hapus foto lama
+            if ($user->foto && Storage::exists('public/users/' . $user->foto)) {
+                Storage::delete('public/users/' . $user->foto);
+            }
+
+            // Simpan foto baru dengan nama acak
+            $fotoBaru = $request->file('foto');
+            $namaFotoBaru = Str::random(40) . '.' . $fotoBaru->getClientOriginalExtension();
+            $fotoBaru->storeAs('public/users', $namaFotoBaru);
+            $user->foto = $namaFotoBaru;
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Data pengguna berhasil diperbarui.');
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('edit', compact('user'));
     }
 }
